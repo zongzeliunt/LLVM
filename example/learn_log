@@ -1,0 +1,22 @@
+https://www.jianshu.com/p/1590ab2bb444
+
+	$ clang -o3  -emit-llvm hello.c -c -o hello.bc
+	$ clang -o3  -emit-llvm hello.c -S -o hello.ll
+
+
+用lli执行bc文件：
+	/home/ares/LLVM/build/bin/lli hello.bc 
+
+反汇编：
+	/home/ares/LLVM/build/bin/llvm-dis < hello.bc > bc
+	这是把bc的文件输入到llvm-dis程序里，bc只是一个log文件存message的
+
+用llc将bc编译成.s文件，cpu架构的汇编指令：
+	/home/ares/LLVM/build/bin/llc hello.bc -o hello.s
+
+用gcc将汇编文件转成程序：
+	gcc -no-pie hello.s -o hello.native
+	如果不加-no-pie，当执行时会出以下message：
+		Symbol `printf' causes overflow in R_X86_64_PC32 relocation
+	看上去，这就是一个32位和64位的问题。
+	gcc会默认用32位模式编译那个hello.s文件，在64位机上执行会出地址溢出问题，网上查的办法就是用-no-pie。这样编译就好了。
