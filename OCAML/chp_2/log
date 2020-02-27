@@ -1,5 +1,5 @@
-#https://llvm.org/docs/tutorial/OCamlLangImpl2.html
-
+https://llvm.org/docs/tutorial/OCamlLangImpl2.html
+_tag 非常重要！
 # Compile
 ocamlbuild toy.byte
 # Run
@@ -16,3 +16,10 @@ Error: unknown token when expecting an expression
 ready> extern sin(a);
 ready> Parsed an extern
 ready> ^D
+
+用途	C	字节码	原生码
+源文件	*.c	*.ml	*.ml
+头文件1	*.h	*.mli	*.mli
+目标文件	*.o	*.cmo	*.cmx2
+库文件	*.a	*.cma	*.cmxa3
+二进制程序	prog	prog	prog.opt4

@@ -1,0 +1,5 @@
+llvm-config --cxxflags
+ocamlbuild -use-ocamlfind toy.byte -package llvm
+
+
+
