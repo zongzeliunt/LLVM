@@ -6,6 +6,8 @@ https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
 clang++ -g -O3 toy.cpp
 # Run
 ./a.out
+./a.out < code.txt
+
 
 ready> def foo(x y) x+foo(y, 4.0);
 Parsed a function definition.
