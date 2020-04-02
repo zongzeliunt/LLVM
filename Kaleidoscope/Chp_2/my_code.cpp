@@ -8,12 +8,15 @@
 using namespace std;
 
 
-//===----------------------------------------------------------------------===//
-// Lexer
-//===----------------------------------------------------------------------===//
-
+// Lexer 和 gettok函数
+//{{{
 // The lexer returns tokens [0-255] if it is an unknown character, otherwise one
 // of these for known things.
+static int CurTok;
+static int getNextToken() {
+  return CurTok = gettok();
+}
+
 enum Token {
   tok_eof = -1,
 
@@ -27,10 +30,8 @@ enum Token {
 static std::string IdentifierStr;  // Filled in if tok_identifier
 static double NumVal;              // Filled in if tok_number
 
-/// gettok - Return the next token from standard input.
 // gettok 函数
 //这个函数是用来把输入的代码拆分成各种指示符的
-//{{{
 static int gettok() {
   static int LastChar = ' ';
 
@@ -81,7 +82,6 @@ static int gettok() {
   return ThisChar;
 }
 //}}}
-
 
 //AST 树
 //{{{
@@ -152,11 +152,6 @@ public:
 
 // Parser 解析器
 //{{{
-static int CurTok;
-static int getNextToken() {
-  return CurTok = gettok();
-}
-
 static std::map<char, int> BinopPrecedence;
 
 /// GetTokPrecedence - Get the precedence of the pending binary operator token.
@@ -176,7 +171,6 @@ PrototypeAST *ErrorP(const char *Str) { Error(Str); return 0; }
 FunctionAST *ErrorF(const char *Str) { Error(Str); return 0; }
 
 static ExprAST *ParseExpression();
-//}}}
 
 //不同的表达式的不同处理方案
 //{{{
@@ -324,6 +318,7 @@ static PrototypeAST *ParsePrototype() {
 
   return new PrototypeAST(FnName, ArgNames);
 }
+//}}}
 //}}}
 //}}}
 
