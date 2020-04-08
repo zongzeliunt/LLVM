@@ -149,6 +149,7 @@ std::unique_ptr<FunctionAST> parser::ParseTopLevelExpr() {
 void parser::HandleTopLevelExpression() {
   // Evaluate a top-level expression into an anonymous function.
   if (auto FnAST = ParseTopLevelExpr()) {
+	//FnAST 是一个FunctionAST类型
     if (auto *FnIR = FnAST->codegen()) {
       fprintf(stderr, "Read top-level expression:");
       FnIR->print(errs());
