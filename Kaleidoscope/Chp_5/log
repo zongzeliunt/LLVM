@@ -35,3 +35,28 @@ def printstar(n)
 
 # print 100 '*' characters
 printstar(100);
+
+
+ready> extern putchard(char);
+ready> Read extern: 
+declare double @putchard(double)
+
+ready> def printstar(n)
+ready> for i = 1, i < n, 1.0 in
+putchard(42);
+Read function definition:
+define double @printstar(double %n) {
+entry:
+  br label %loop
+
+loop:                                             ; preds = %loop, %entry
+  %i = phi double [ 1.000000e+00, %entry ], [ %nextvar, %loop ]
+  %calltmp = call double @putchard(double 4.200000e+01)
+  %nextvar = fadd double %i, 1.000000e+00
+  %cmptmp = fcmp ult double %i, %n
+  br i1 %cmptmp, label %loop, label %afterloop
+
+afterloop:                                        ; preds = %loop
+  ret double 0.000000e+00
+}
+
