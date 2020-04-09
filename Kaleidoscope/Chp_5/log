@@ -1,0 +1,37 @@
+extern foo(a) a + 3;
+def baz(x) if x then foo(x) else 0;
+
+ready> def foo(a) a + 3;
+ready> Read function definition:
+define double @foo(double %a) {
+entry:
+  %addtmp = fadd double %a, 3.000000e+00
+  ret double %addtmp
+}
+
+ready> def baz(x) if x then foo(x) else 0;
+ready> Read function definition:
+define double @baz(double %x) {
+entry:
+  %ifcond = fcmp ueq double %x, 0.000000e+00
+  br i1 %ifcond, label %ifcont, label %then
+
+then:                                             ; preds = %entry
+  %calltmp = call double @foo(double %x)
+  br label %ifcont
+
+ifcont:                                           ; preds = %entry, %then
+  %iftmp = phi double [ %calltmp, %then ], [ 0.000000e+00, %entry ]
+  ret double %iftmp
+}
+
+
+=========================================================
+
+extern putchard(char);
+def printstar(n)
+  for i = 1, i < n, 1.0 in
+    putchard(42);  # ascii 42 = '*'
+
+# print 100 '*' characters
+printstar(100);

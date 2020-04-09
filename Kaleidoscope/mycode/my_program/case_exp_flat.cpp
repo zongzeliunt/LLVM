@@ -48,6 +48,7 @@ int main () {
 	//	BinaryExprAST E 其实没必要声明
 
 	//以下内容来自FunctionAST::codegen()
+	//{{{
 		//FunctionAST 其实有两个member，一个proto一个body，body就是BinaryExprAST E
 
 	Function *TheFunction = TheModule->getFunction(Proto_Name);
@@ -55,7 +56,8 @@ int main () {
 		//因为Proto是一个我刚定义的函数体，可能前面有预先定义的函数头，叫同一个名字。假如搜不到，就用新拿到的函数头的型参列表来定义这个函数
 
   	if (!TheFunction) {
-	//来自 PrototypeAST::codegen():
+		//来自 PrototypeAST::codegen():
+		//{{{
   		std::vector<Type *> Doubles(Proto_Args.size(), Type::getDoubleTy(TheContext));
 		//FunctionType 应该是来自Function.h
  	 	FunctionType *FT = FunctionType::get(Type::getDoubleTy(TheContext), Doubles, false);
@@ -65,6 +67,7 @@ int main () {
 		unsigned Idx = 0;
 		for (auto &Arg : TheFunction->args())
 			Arg.setName(Proto_Args[Idx++]);
+		//}}}
 	}
 
 	BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
@@ -79,8 +82,10 @@ int main () {
   	  	NamedValues[std::string(Arg.getName())] = &Arg;
 
 	//来自BinaryExprAST E的codegen
+	//{{{
 	Value *L =	ConstantFP::get(TheContext, APFloat(LHS));
 	Value *R =	ConstantFP::get(TheContext, APFloat(RHS));
+	//}}}
 
    	Value *RetVal = Builder.CreateFAdd(L, R, "addtmp");
 
@@ -90,6 +95,7 @@ int main () {
 
 
     TheFunction->print(errs());
+	//}}}
 
 
 

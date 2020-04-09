@@ -114,8 +114,11 @@ int main () {
 	//以下内容来自HandleTopLevelExpression
 	//{{{
     auto H = TheJIT->addModule(std::move(TheModule));
+		//在KaleidoscopeJIT.h里，H是一个ModuleHandleT类型的数据
 
     auto ExprSymbol = TheJIT->findSymbol("__anon_expr");
+		//教程在这里写的很混蛋，居然把Proto_Name的明码写在函数里，假如用户用了别的Proto_Name那么这里就找不到了！
+
     assert(ExprSymbol && "Function not found");
 
     double (*FP)() = (double (*)())(intptr_t)cantFail(ExprSymbol.getAddress());
