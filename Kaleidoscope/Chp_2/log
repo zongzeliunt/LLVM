@@ -1,6 +1,7 @@
 https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-2.html
 
-
+全部官方教程：
+https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
 
 # Compile
 clang++ -g -O3 toy.cpp

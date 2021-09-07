@@ -13,9 +13,6 @@ using namespace std;
 // The lexer returns tokens [0-255] if it is an unknown character, otherwise one
 // of these for known things.
 static int CurTok;
-static int getNextToken() {
-  return CurTok = gettok();
-}
 
 enum Token {
   tok_eof = -1,
@@ -80,6 +77,10 @@ static int gettok() {
   int ThisChar = LastChar;
   LastChar = getchar();
   return ThisChar;
+}
+
+static int getNextToken() {
+  return CurTok = gettok();
 }
 //}}}
 
